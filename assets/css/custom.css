@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;700&display=swap');
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f4;
+    /* stone-100 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a8a29e;
+    /* stone-400 */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #78716c;
+    /* stone-500 */
+}
+
+/* Typographic mix */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.serif {
+    font-family: 'Noto Serif Thai', serif;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+}
