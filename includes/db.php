@@ -10,11 +10,10 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.
     $password = "";           
     $dbname = "chonburi_temples";          
 } else {
-    // การตั้งค่าสำหรับโฮสต์จริง (ProFreeHost)
-    $servername = "sql100.ezyro.com";
-    $username = "ezyro_40941540";
-    $password = "10a2bce7fd01";      
-    $dbname = "ezyro_40941540_Wat";  
+    $servername = "";
+    $username = "";
+    $password = "";      
+    $dbname = "";  
 }
 
 // สร้างการเชื่อมต่อ
