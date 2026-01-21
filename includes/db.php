@@ -1,40 +1,52 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "chonburi_temples";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Create connection
+// ตรวจสอบว่ารันบนเครื่องตัวเอง (Localhost) หรือบนโฮสต์จริง
+if ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1') {
+    // การตั้งค่าสำหรับเครื่องตัวเอง (XAMPP)
+    $servername = "localhost";
+    $username = "root";       
+    $password = "";           
+    $dbname = "chonburi_temples";          
+} else {
+    // การตั้งค่าสำหรับโฮสต์จริง (ProFreeHost)
+    $servername = "sql100.ezyro.com";
+    $username = "ezyro_40941540";
+    $password = "10a2bce7fd01";      
+    $dbname = "ezyro_40941540_Wat";  
+}
+
+// สร้างการเชื่อมต่อ
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// ตรวจสอบการเชื่อมต่อ
 if ($conn->connect_error) {
-    // Fallback: If DB connection fails, we might want to suppress error slightly or handle gracefully
-    // But for dev environment, let's show it.
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Function to get temples (Switcher between DB and JSON purely for transition safety, 
-// but here we aim to use DB primarily once connected)
-// Function to get temples with optional search and pagination
-function getTemples($conn, $search = '', $limit = 0, $offset = 0) {
+// ตั้งค่าภาษาไทย
+$conn->set_charset("utf8");
+
+// ==========================================
+// ส่วนฟังก์ชั่นดึงข้อมูล (Functions)
+// *ต้องนำกลับมาวางที่นี่เพราะไฟล์เดิมถูกทับ*
+// ==========================================
+
+function getTemples($conn, $search = '', $limit = 1000, $offset = 0) {
     $sql = "SELECT * FROM temples";
     
-    // Search condition
-    $where = "";
+    // ถ้ามีการค้นหา
     if (!empty($search)) {
         $search = $conn->real_escape_string($search);
-        $where = " WHERE name LIKE '%$search%' OR address LIKE '%$search%'";
-        $sql .= $where;
+        $sql .= " WHERE name LIKE '%$search%' OR address LIKE '%$search%'";
     }
     
-    // Pagination
-    if ($limit > 0) {
-        $sql .= " LIMIT $limit OFFSET $offset";
-    }
+    // การแบ่งหน้า
+    $sql .= " LIMIT $limit OFFSET $offset";
     
     $result = $conn->query($sql);
-
+    
     $temples = [];
     if ($result && $result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -44,7 +56,6 @@ function getTemples($conn, $search = '', $limit = 0, $offset = 0) {
     return $temples;
 }
 
-// Function to count total temples for pagination
 function getTemplesCount($conn, $search = '') {
     $sql = "SELECT COUNT(*) as total FROM temples";
     
@@ -54,7 +65,10 @@ function getTemplesCount($conn, $search = '') {
     }
     
     $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    return $row['total'];
+    if ($result) {
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+    return 0;
 }
 ?>

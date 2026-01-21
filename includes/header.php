@@ -61,7 +61,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
 </head>
-<body class="bg-[#fffbeb] text-stone-800 flex flex-col min-h-screen relative" style="background-image: radial-gradient(circle at 15% 50%, rgba(251, 191, 36, 0.15) 0%, transparent 25%), radial-gradient(circle at 85% 30%, rgba(168, 121, 101, 0.15) 0%, transparent 25%); background-attachment: fixed;">
+<body class="text-stone-800 flex flex-col min-h-screen relative" style="background-image: url('assets/img/background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
 
     <!-- Navigation -->
     <nav class="bg-white/90 backdrop-blur-md text-stone-800 shadow-sm border-b border-stone-100 sticky top-0 z-50">
